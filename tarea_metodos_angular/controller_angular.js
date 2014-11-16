@@ -2,6 +2,7 @@ angular.module('changeExample', [])
     .controller('ExampleController', ['$scope', function($scope) {
     	$scope.resultados=[];
     	$scope.resultados_lagrange=[];
+    	var aumento=1;
     	$scope.change = function() {
     		$scope.resultados=[];
     		$scope.resultados_lagrange=[];
@@ -10,7 +11,7 @@ angular.module('changeExample', [])
 	      	for (i = 0; i < $scope.nro_puntos; i++) {
 	      		var res = $scope.funcion.replace("x",i);      
 				var item1 = {
-					"key":i, "value":math.eval(res) 
+					"key":i, "value":(math.eval(res)) 
 		        }
 		        $scope.resultados.push(item1);
 			};
@@ -22,7 +23,6 @@ angular.module('changeExample', [])
 					for (var key in $scope.resultados) {
 						if(key>0){
 							var respuesta_lagrange=(((i-key-1)/(-1))*$scope.resultados[key-1].value)+(((i-key)/(1))*$scope.resultados[key].value);
-							console.log("respuesta lg->"+$scope.resultados[key-1].value+" i->"+i+" key->"+key+" resultados k+1->"+$scope.resultados[key].value);
 							var item1 = {
 								"key":i, "value":respuesta_lagrange
 					        }
@@ -31,5 +31,53 @@ angular.module('changeExample', [])
 					$scope.resultados_lagrange.push(item1);
 				}
 			}
-    	};
+    	
+			//pinto en el canvas
+			var c = document.getElementById("myCanvas");
+			var ctx = c.getContext("2d");
+			ctx.beginPath();
+			for (var key in $scope.resultados) {
+				if(key>0){
+					xInicial=(key-1)*aumento;
+					yInicial=$scope.resultados[key-1].value;
+					xFinal=(key)*aumento;
+					yFinal=$scope.resultados[key].value*aumento;
+					//console.log("entro inicial:->"+xInicial+"-"+yInicial+" final->"+xFinal+"-"+yFinal);
+					ctx.moveTo(xInicial,1000- yInicial);
+					ctx.lineTo(xFinal,1000-yFinal) ;
+					ctx.strokeStyle = '#000000 ';
+					ctx.lineWidth = 2;
+					
+					ctx.stroke();
+					ctx.fill();
+					ctx.closePath();
+				}
+			}
+			 
+			 var c1 = document.getElementById("myCanvas");
+			var ctx1 = c1.getContext("2d");
+			ctx1.beginPath();
+			for (var key in $scope.resultados_lagrange) {
+				if(key>0){
+					xInicial=(key-1)*aumento;
+					yInicial=$scope.resultados_lagrange[key-1].value;
+					xFinal=(key)*aumento;
+					yFinal=$scope.resultados_lagrange[key].value*aumento;
+					console.log("entro inicial:->"+xInicial+"-"+yInicial+" final->"+xFinal+"-"+yFinal);
+					ctx1.moveTo(xInicial,1000- yInicial);
+					ctx1.lineTo(xFinal,1000-yFinal) ;
+					ctx1.strokeStyle = '#ff0000	';
+					ctx1.lineWidth = 2;
+					ctx1.stroke();
+					ctx1.fill();		ctx1.closePath();
+			
+				}
+			}
+
+	    };
+
+		/*ctx.moveTo(0, 1000);
+      	ctx.lineTo(550, 250);
+      	ctx.stroke();
+	//	ctx.fillRect(0,0,150,75);*/
     }]);
