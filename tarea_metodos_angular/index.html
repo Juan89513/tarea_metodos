@@ -1,0 +1,54 @@
+ <!DOCTYPE html>
+<html>
+
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/1.1.0/math.min.js"></script>
+<script type="text/javascript" src="controller_angular.js"></script>
+<style>
+  .my-input {
+    -webkit-transition:all linear 0.5s;
+    transition:all linear 0.5s;
+    background: transparent;
+  }
+  .my-input.ng-invalid {
+    color:white;
+    background: red;
+  }
+</style>
+</head>
+<body>
+<div ng-app="changeExample">
+	<div ng-controller="ExampleController">
+	<input ng-model="funcion" class="my-input"  ng-change="change()"/>
+	<input ng-model="nro_puntos" class="my-input" ng-change="change()" /><br>
+	<b>Valores al evaluar</b>
+	<table border=1>
+		<thead>
+			<th>Llave</th>
+			<th>Valor</th>
+		</thead>
+		<tr ng-repeat="x in resultados">
+			<td>{{x.key}}</td>
+			<td>{{x.value}}</td>
+		</tr>
+	</table><br>
+	<b>Valores al evaluar con Lagrange</b>
+	<table border=1>
+		<thead>
+			<th>Llave</th>
+			<th>Valor</th>
+		</thead>
+		<tr ng-repeat="x in resultados_lagrange">
+			<td>{{x.key}}</td>
+			<td>{{x.value}}</td>
+		</tr>
+	</table>
+	</div>
+	Input pruebas regex
+ <input ng-model="val" ng-pattern="/^\d+$/" name="anim" class="my-input" />
+  </div>
+</body>
+</html>
+
+  
