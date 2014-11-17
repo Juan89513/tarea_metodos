@@ -2,29 +2,34 @@
 <html>
 
 <head>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/1.1.0/math.min.js"></script>
-<script type="text/javascript" src="controller_angular.js"></script>
-<link href="table_style.css" rel="stylesheet" type="text/css">
-<style>
-  .my-input {
-    -webkit-transition:all linear 0.5s;
-    transition:all linear 0.5s;
-    background: transparent;
-  }
-  .my-input.ng-invalid {
-    color:white;
-    background: red;
-  }
-</style>
+	<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script> <!-- DataTables  
+	<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.8.2/jquery.dataTables.min.js"></script>-->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>	
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/1.1.0/math.min.js"></script>
+	<script type="text/javascript" src="controller_angular.js"></script>
+	<link href="table_style.css" rel="stylesheet" type="text/css">
+	<!--<style>
+	  .my-input {
+	    -webkit-transition:all linear 0.5s;
+	    transition:all linear 0.5s;
+	    background: transparent;
+	  }
+	  .my-input.ng-invalid {
+	    color:white;
+	    background: red;
+	  }-->
+	</style>
 </head>
 <body>
 <div ng-app="changeExample">
 	<div ng-controller="ExampleController">
-	<input ng-model="funcion" class="my-input"  ng-change="change()"/>
-	<input ng-model="nro_puntos" class="my-input" ng-change="change()" /><br>
-	<b>Valores al evaluar</b>
-	<table border=1 >
+	<input ng-model="funcion" class="my-input"  ng-change="change()" />
+	<input ng-model="nro_puntos" class="my-input" ng-change="change()"/><br><br>
+	<table  class="hovertable" >
+		<thead>
+			<th>Valores-></th>
+			<th>Evaluacion normal</th>
+		</thead>
 		<thead>
 			<th>Llave</th>
 			<th>Valor</th>
@@ -34,8 +39,11 @@
 			<td>{{x.value}}</td>
 		</tr>
 	</table>
-	<b>Valores al evaluar con Lagrange</b>
-	<table border=1>
+	<table  class="hovertable">
+		<thead>
+			<th>Valores-></th>
+			<th>Evaluacion Lagrange</th>
+		</thead>
 		<thead>
 			<th>Llave</th>
 			<th>Valor</th>
@@ -44,7 +52,10 @@
 			<td>{{x.key}}</td>
 			<td>{{x.value}}</td>
 		</tr>
-	</table>
+	</table><br><br>
+	<!--<div ng-controller="Ctrl">
+        <table my-table options="options"></table>
+    </div>-->
 		<canvas id="myCanvas" width="1000" height="1000" style="border:1px solid #c3c3c3;">
 			Your browser does not support the HTML5 canvas tag.
 		</canvas>
