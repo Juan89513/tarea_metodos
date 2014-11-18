@@ -17,23 +17,66 @@ var app =angular.module('changeExample', [])
 		        }
 		        $scope.resultados.push(item1);
 		    };
-		   	//$scope.options.aaData=$scope.resultados;
-
+		   	
+			
 			aplicarLagrange();
 
 			//aplica la idea del polinomio de lagrange
  			function aplicarLagrange(){
-				for (i = 0; i < $scope.nro_puntos; i++) {
-					for (var key in $scope.resultados) {
-						if(key>0){
-							var respuesta_lagrange=(((i-key-1)/(-1))*$scope.resultados[key-1].value)+(((i-key)/(1))*$scope.resultados[key].value);
-							var item1 = {
-								"key":i, "value":respuesta_lagrange
-					        }
-						}
+				var constante=$scope.nro_puntos;
+				$scope.aux=$scope.nro_puntos;
+				$scope.pol_lagrange=[];
+				$resultado_total=0;
+				var resultado_total=1;
+				var denominador_total=1;
+				var resultado_total1=0;
+				var denominador_total=1;
+				var resultado_iteracion=0;
+				var aux;
+				for(var j=$scope.aux;j>0;j--){
+		//			console.log("ITEROj"+j)
+					aux=0
+					while(aux<j){
+							//console.log("ITEROa"+aux)
+							
+							//
+							resultado_total=1;
+							for(var i=0;i<j;i++){
+							//console.log("ITEROi"+i)
+								if(i!=aux){
+									var denominador=(j-i);
+									var numerador=(aux-i);
+									var resultado=denominador/numerador;
+									/*console.log(denominador)
+									console.log(numerador)
+									*/
+									//console.log(resultado_total)
+									resultado_total*=resultado;
+										console.log("abajo"+aux+"-"+i)
+								console.log("arriba"+j+"-"+i)
+								console.log("//////////////7")
+								}
+							}
+							resultado_iteracion=resultado_total*$scope.resultados[aux].value;
+							resultado_total1+=resultado_iteracion;
+							//console.log("aux-j->"+aux+"-"+j)
+							if(aux==j-1){
+							//	 console.log("R"+resultado_total1+"V"+$scope.resultados[aux].value);
+								var item1 = {
+									"key":aux+1, "value":resultado_total1
+					        	}
+							$scope.resultados_lagrange.push(item1);
+							}
+							if(j==4){
+							
+								//console.log("aux-j-"+aux+"-"+j);
+								if(aux==j-1){
+									console.log("R"+resultado_total1+"V"+$scope.resultados[aux].value);
+								}
+							}
+							aux++;
 					}
-					$scope.resultados_lagrange.push(item1);
-				}
+				}	
 			}
     	
 			//pinto en el canvas
@@ -46,7 +89,6 @@ var app =angular.module('changeExample', [])
 					yInicial=$scope.resultados[key-1].value;
 					xFinal=(key)*aumento;
 					yFinal=$scope.resultados[key].value*aumento;
-					//console.log("entro inicial:->"+xInicial+"-"+yInicial+" final->"+xFinal+"-"+yFinal);
 					ctx.moveTo(xInicial,1000- yInicial);
 					ctx.lineTo(xFinal,1000-yFinal) ;
 					ctx.strokeStyle = '#000000 ';
