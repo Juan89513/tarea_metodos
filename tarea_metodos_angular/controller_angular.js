@@ -1,7 +1,8 @@
 var app =angular.module('changeExample', [])
     app.controller('ExampleController', ['$scope', function($scope) {
     	$scope.resultados=[];
-    	$scope.resultados_lagrange=[];
+    	$scope.errores=[];
+		$scope.resultados_lagrange=[];
     	$scope.funcion="x";
     	$scope.nro_puntos="0";
     	var aumento=1;
@@ -10,7 +11,7 @@ var app =angular.module('changeExample', [])
     		$scope.resultados_lagrange=[];
 	      	
 	      	//evaluo la funcion para cada punto y la meto a resultados
-	      	for (i = 0; i < $scope.nro_puntos; i++) {
+	      	for (i = 1; i <= $scope.nro_puntos; i++) {
 	      		var res = $scope.funcion.replace("x",i);      
 				var item1 = {
 					"key":i, "value":(math.eval(res)) 
@@ -56,7 +57,21 @@ var app =angular.module('changeExample', [])
 							}
 							aux++;
 					}
-				}	
+				}
+					$scope.resultados_lagrange.reverse();
+					calcularError();
+					
+			}
+			function calcularError(){
+					var error = 0;
+					$scope.errores = [];
+					for(var i=0;i<$scope.resultados_lagrange.length;i++){
+						error=Math.abs($scope.resultados_lagrange[i].value-$scope.resultados[i].value);
+						var item1 = {
+									"key":i+1, "value":error
+					        	}
+						$scope.errores.push(item1);
+					}
 			}
 			pintar()
 	    };

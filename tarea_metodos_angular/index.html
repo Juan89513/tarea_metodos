@@ -53,6 +53,20 @@
 			<td>{{x.value}}</td>
 		</tr>
 	</table><br><br>
+	<table  class="hovertable">
+		<thead>
+			<th>Valores-></th>
+			<th>Error</th>
+		</thead>
+		<thead>
+			<th>Llave</th>
+			<th>Valor</th>
+		</thead>
+		<tr ng-repeat="x in errores">
+			<td>{{x.key}}</td>
+			<td>{{x.value}}</td>
+		</tr>
+	</table><br><br>
 	<!--<div ng-controller="Ctrl">
         <table my-table options="options"></table>
     </div>-->
