@@ -3,6 +3,8 @@ var app =angular.module('changeExample', [])
     	$scope.resultados=[];
     	$scope.errores=[];
 		$scope.resultados_lagrange=[];
+    	$scope.resultados_lagrange_a=[];
+    	
     	$scope.funcion="x";
     	$scope.nro_puntos="0";
     	var aumento=1;
@@ -58,17 +60,31 @@ var app =angular.module('changeExample', [])
 							aux++;
 					}
 				}
-					$scope.resultados_lagrange.reverse();
-					calcularError();
+				
+				$scope.resultados_lagrange.reverse();
+				//$scope.resultados_lagrange[0]=
+				// console.log(($scope.resultados[0]
+				for (var i=0;i<$scope.resultados_lagrange.length-1;i++){
+					ax=i+2
+					var item1 = {
+						"key":ax, "value":$scope.resultados_lagrange[i].value
+		        	}
+		        $scope.resultados_lagrange_a.push(item1);
+					
+				
+				}
+				 
+				$scope.resultados_lagrange=$scope.resultados_lagrange_a
+				calcularError();
 					
 			}
 			function calcularError(){
 					var error = 0;
 					$scope.errores = [];
-					for(var i=0;i<$scope.resultados_lagrange.length;i++){
-						error=Math.abs($scope.resultados_lagrange[i].value-$scope.resultados[i].value);
+					for(var i=1;i<$scope.resultados_lagrange.length;i++){
+						error=Math.abs($scope.resultados_lagrange[i-1].value-$scope.resultados[i].value);
 						var item1 = {
-									"key":i+1, "value":error
+									"key":i, "value":error
 					        	}
 						$scope.errores.push(item1);
 					}
